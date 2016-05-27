@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="shay.murray.imagecacheviewer.ImageViewerActivity">
+
+    <LinearLayout
+        android:id="@+id/lin1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/imgUrl_name"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/editPhotoLinkLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:hint="只 允 許 輸 入 圖 片 網 路 位 置"
+            android:lines="3"
+            android:text="https://dl2.pushbulletusercontent.com/N8cpfqRTVjVLDIYPCuY5PJoo5udx7wzB/20160525_132324.jpg" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/lin1"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="6dp"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/spinnerCacheType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"></Spinner>
+
+        <Button
+            android:id="@+id/btnDownloadandCache"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:backgroundTint="#C1A281"
+            android:text="DownLoad" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/lin2"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="6dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/lin3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Image Photo Viewer : "
+                android:textSize="16dp" />
+
+            <ImageView
+                android:id="@+id/imgViewer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/imggallery" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Image Cache Location : "
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/txtCacheLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:text="none...click me, get path!"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

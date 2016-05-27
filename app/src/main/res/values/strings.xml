@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ImageCacheViewer</string>
+    <string name="imgUrl_name">DownLoad Photo Link Location : </string>
+</resources>
