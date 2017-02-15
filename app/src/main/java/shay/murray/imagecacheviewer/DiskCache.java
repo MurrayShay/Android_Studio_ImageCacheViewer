@@ -33,6 +33,8 @@ public class DiskCache implements ImageCache{
     @Override
     public Bitmap get(String url) {
         Log.e(LT,"get(String url)---url : " + url);
+        Log.e(LT,"get(String url)---sha1 : " + sha1(url));
+        Log.e(LT,"get(String url)---cacheFileDir : " + cacheFileDir);
         FileInputStream fInputStream = null;
         try {
             File file = new File(cacheFileDir,sha1(url)+".png");
@@ -49,7 +51,9 @@ public class DiskCache implements ImageCache{
 
     @Override
     public void put(String url, Bitmap bitmap) {
-        Log.e(LT,"put(String url, Bitmap bitmap)---url : " + url +"---bitmap : " + bitmap);
+        Log.e(LT,"put(String url, Bitmap bitmap)---url : " + url +
+                        "\n---sha1 : " + sha1(url) +
+                        "\n---bitmap : " + bitmap);
         OutputStream fileOutputStream = null;
         try{
             File file = new File(cacheFileDir,sha1(url)+".png");

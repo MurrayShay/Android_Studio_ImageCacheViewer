@@ -3,6 +3,7 @@ package shay.murray.imagecacheviewer;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ImageView;
 
 import java.io.InputStream;
@@ -17,6 +18,7 @@ import java.util.concurrent.Executors;
  * Created by murray.shay on 2016/5/26.
  */
 public class ImageLoader {
+    private static final String LT = ImageLoader.class.getSimpleName();
     //圖片快取
     ImageCache mImageCache = new MemoryCache();
 
@@ -31,10 +33,12 @@ public class ImageLoader {
     public void displayImage(String imageUrl, ImageView imageView){
         Bitmap bitmap = mImageCache.get(imageUrl);
         if(bitmap != null){
+            Log.e(LT,"mImageCache.get(imageUrl) have returned bitmap, 圖片已經在快取了");
             imageView.setImageBitmap(bitmap);
             return;
         }
         //圖片沒有快取,提交到執行緒池中下載圖片
+        Log.e(LT,"圖片沒有快取,提交到執行緒池中下載圖片");
         new DownloadImageAsyncTask(imageView).execute(imageUrl);
     }
 

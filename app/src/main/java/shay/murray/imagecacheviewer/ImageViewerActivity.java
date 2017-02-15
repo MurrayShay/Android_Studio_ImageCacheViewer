@@ -83,7 +83,10 @@ public class ImageViewerActivity extends AppCompatActivity {
         ShowImageCacheLocationText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowImageCacheLocationText.setText(imageDiskCacheLocation(appContext).toString());
+                String cacheFileNameAndLocation = imageDiskCacheLocation(appContext).toString();
+                if (!cacheFileNameAndLocation.isEmpty()) {
+                    ShowImageCacheLocationText.setText(cacheFileNameAndLocation);
+                }
             }
         });
     }
@@ -94,8 +97,8 @@ public class ImageViewerActivity extends AppCompatActivity {
             File dir = context.getFilesDir();
             if (dir != null && dir.isDirectory()) {
                 String[] children = dir.list();
-                for (int i = 0; i < children.length; i++) {
-                    diskCacheLocationPath.append(dir.getAbsolutePath()+"\n"+children[i]+"\n");
+                for (int i = 1; i < children.length; i++) {
+                    diskCacheLocationPath.append(dir.getAbsolutePath()+"/"+children[i]+"\n");
                 }
             }
             return diskCacheLocationPath;

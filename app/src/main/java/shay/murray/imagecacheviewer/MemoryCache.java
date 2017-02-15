@@ -35,15 +35,15 @@ public class MemoryCache implements ImageCache{
 
     @Override
     public Bitmap get(String url) {
-        Log.e(LT,"get(String url)---url : " + url);
+        Log.e(LT,"get(String url), url : " + url);
         Bitmap bitmap = mMemoryCache.get(DiskCache.sha1(url)+".png");
-        Log.e(LT,"get(String url)---bitmap : " + bitmap);
+        Log.e(LT,"get(String url), bitmap : " + bitmap);
         return bitmap;
     }
 
     @Override
     public void put(String url, Bitmap bitmap) {
-        Log.e(LT,"put(String url, Bitmap bitmap)---url : " + url +" ---bitmap : " + bitmap);
+        Log.e(LT,"put(String url, Bitmap bitmap), url : " + url +" ,\n bitmap : " + bitmap);
         mMemoryCache.put(DiskCache.sha1(url)+".png",bitmap);
     }
 }
