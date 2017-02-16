@@ -1,10 +1,15 @@
 package shay.murray.imagecacheviewer;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.SystemClock;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -19,10 +24,12 @@ import java.util.concurrent.Executors;
  */
 public class ImageLoader {
     private static final String LT = ImageLoader.class.getSimpleName();
+    private final Context mContext;
     //圖片快取
     ImageCache mImageCache = new MemoryCache();
 
-    public ImageLoader(){
+    public ImageLoader(Context context){
+        mContext = context;
     }
 
     //注入快取實作
@@ -34,6 +41,7 @@ public class ImageLoader {
         Bitmap bitmap = mImageCache.get(imageUrl);
         if(bitmap != null){
             Log.e(LT,"mImageCache.get(imageUrl) have returned bitmap, 圖片已經在快取了");
+            Toast.makeText(mContext,"圖片來快取,快取方法為"+mImageCache.getCacheMechanismName(),Toast.LENGTH_SHORT).show();
             imageView.setImageBitmap(bitmap);
             return;
         }
@@ -111,8 +119,9 @@ public class ImageLoader {
 
      class DownloadImageAsyncTask extends AsyncTask<String,Integer,Bitmap>{
 
-         ImageView mImageView;
          String mImageUrl;
+         ImageView mImageView;
+         ProgressDialog progressDialog;
 
          public DownloadImageAsyncTask(ImageView imageView) {
              super();
@@ -122,6 +131,11 @@ public class ImageLoader {
          @Override
          protected void onPreExecute() {
              super.onPreExecute();
+             progressDialog = new ProgressDialog(mContext);
+             progressDialog.setMessage(mContext.getString(R.string.Loading));
+             progressDialog.setCancelable(false);
+             progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+             progressDialog.show();
          }
 
          @Override
@@ -129,6 +143,7 @@ public class ImageLoader {
              if(bitmap == null){
                 return;
              }
+             progressDialog.dismiss();
              mImageView.setImageBitmap(bitmap);
              mImageCache.put(mImageUrl,bitmap);
          }
@@ -139,12 +154,23 @@ public class ImageLoader {
                  return null;
              }
              this.mImageUrl = params[0];
-             return downloadImage(params[0],150);
+
+             Bitmap bitmap = downloadImage(params[0], 150);
+
+             for (int i = 0; i < 50; i++) {
+                 SystemClock.sleep(1);
+                 publishProgress((int) ((i / (float) 50) * 100));
+             }
+
+             publishProgress(100);
+
+             return bitmap;
          }
 
          @Override
          protected void onProgressUpdate(Integer... values) {
              super.onProgressUpdate(values);
+             progressDialog.setProgress(values[0]);
          }
      }
 }

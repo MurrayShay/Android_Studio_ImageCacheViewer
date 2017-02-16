@@ -27,7 +27,7 @@ public class ImageViewerActivity extends AppCompatActivity {
     protected TextView ShowImageCacheLocationText;
 
     private String[] cacheTypeArray = {"MemoryCache","DiskCache","DoubleCache"};
-    private ImageLoader mImageLoader = new ImageLoader();
+    private ImageLoader mImageLoader = new ImageLoader(ImageViewerActivity.this);
     private StringBuilder diskCacheLocationPath ;
 
     @Override

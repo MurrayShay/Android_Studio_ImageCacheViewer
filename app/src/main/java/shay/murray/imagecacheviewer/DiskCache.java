@@ -75,6 +75,11 @@ public class DiskCache implements ImageCache{
         }
     }
 
+    @Override
+    public String getCacheMechanismName() {
+        return LT;
+    }
+
     public static String sha1(String s) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-1");

@@ -46,4 +46,9 @@ public class MemoryCache implements ImageCache{
         Log.e(LT,"put(String url, Bitmap bitmap), url : " + url +" ,\n bitmap : " + bitmap);
         mMemoryCache.put(DiskCache.sha1(url)+".png",bitmap);
     }
+
+    @Override
+    public String getCacheMechanismName() {
+        return LT;
+    }
 }

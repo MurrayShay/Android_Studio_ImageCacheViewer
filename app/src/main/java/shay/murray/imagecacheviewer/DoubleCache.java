@@ -13,6 +13,7 @@ public class DoubleCache implements ImageCache {
     private Activity appContext;
     MemoryCache mMemoryCache;
     DiskCache mDiskCache;
+    String mUseCacheName;
 
     public DoubleCache(Activity context){
         this.appContext = context;
@@ -23,8 +24,10 @@ public class DoubleCache implements ImageCache {
     @Override
     public Bitmap get(String url) {
         Bitmap bitmap = mMemoryCache.get(url);
+        mUseCacheName = mMemoryCache.getCacheMechanismName();
         if(bitmap == null){
             bitmap = mDiskCache.get(url);
+            mUseCacheName = mDiskCache.getCacheMechanismName();
         }
         return bitmap;
     }
@@ -33,5 +36,10 @@ public class DoubleCache implements ImageCache {
     public void put(String url, Bitmap bitmap) {
         mMemoryCache.put(url,bitmap);
         mDiskCache.put(url,bitmap);
+    }
+
+    @Override
+    public String getCacheMechanismName() {
+        return "雙緩存機制,來自"+mUseCacheName;
     }
 }
