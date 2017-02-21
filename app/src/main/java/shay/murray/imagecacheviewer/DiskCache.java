@@ -63,15 +63,7 @@ public class DiskCache implements ImageCache{
             Log.e(LT,"public void put(String url, Bitmap bitmap)---FileNotFoundException have happened！");
             ex.printStackTrace();
         }finally {
-            if(fileOutputStream != null){
-                try {
-                    fileOutputStream.flush();
-                    fileOutputStream.close();
-                }catch (IOException ex){
-                    Log.e(LT,"public void put(String url, Bitmap bitmap)---IOException have happened！");
-                    ex.printStackTrace();
-                }
-            }
+            CloseUtils.closeQuitly(fileOutputStream);
         }
     }
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Parcelable;
 import android.os.SystemClock;
 import android.util.Log;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.io.InputStream;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.MalformedInputException;
@@ -22,7 +24,7 @@ import java.util.concurrent.Executors;
 /**
  * Created by murray.shay on 2016/5/26.
  */
-public class ImageLoader {
+public class ImageLoader{
     private static final String LT = ImageLoader.class.getSimpleName();
     private final Context mContext;
     //圖片快取
@@ -173,4 +175,7 @@ public class ImageLoader {
              progressDialog.setProgress(values[0]);
          }
      }
+
+
+
 }
